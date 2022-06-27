@@ -1,0 +1,3 @@
+[submodule "ALVR"]
+	path = ALVR
+	url = https://github.com/alvr-org/ALVR
