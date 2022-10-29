@@ -7,6 +7,10 @@ unzip download.zip
 rm download.zip
 mv ALVR-master ALVR
 
+pushd ALVR
+cargo xtask prepare-deps
+popd
+
 rm -r cardboard
 
 # Download sdk source

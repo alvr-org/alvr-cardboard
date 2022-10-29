@@ -1,11 +1,7 @@
 # ALVR for Google Cardboard
 
+This repository hosts the platform-specific code for the Google Cardboard client.
+
 ## Build
 
-Clone this repo recursively. Then run:
-
-```sh
-sh build-cardboard-sdk.sh
-```
-
-Finally build with Android Studio.
+Run `bash prepare-deps.sh` then compile with Android Studio.
