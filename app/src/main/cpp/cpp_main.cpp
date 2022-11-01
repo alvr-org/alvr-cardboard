@@ -359,7 +359,7 @@ Java_com_google_cardboard_VrActivity_renderNative(JNIEnv *, jobject) {
         int swapchainIndices[2] = {0, 0};
         alvr_render_stream_opengl(streamHardwareBuffer, swapchainIndices);
 
-        alvr_report_submit(timestampNs, VSYNC_QUEUE_INTERVAL_NS);
+        alvr_report_submit(timestampNs, 0);
 
         viewsDescs[0].texture = CTX.streamTextures[0];
         viewsDescs[1].texture = CTX.streamTextures[1];
