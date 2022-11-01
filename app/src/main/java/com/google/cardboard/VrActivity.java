@@ -29,7 +29,6 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class VrActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     static {
-        System.loadLibrary("alvr_client_core");
         System.loadLibrary("native_lib");
     }
 
