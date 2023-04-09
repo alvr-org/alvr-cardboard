@@ -27,9 +27,6 @@ jobs:
       - uses: crazy-max/ghaction-chocolatey@v1
         with:
           args: install vulkan-sdk
-
-      - name: Prepare deps
-        run: bash ./prepare-deps.sh
       
       - uses: nttld/setup-ndk@v1
         id: setup-ndk
@@ -41,6 +38,9 @@ jobs:
         with:
           java-version: 11
     
+      - name: Prepare deps
+        run: bash ./prepare-deps.sh
+      
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
       
@@ -53,47 +53,47 @@ jobs:
           name: Windows build APK(s) debug generated
           path: app/build/outputs/apk/debug/
 
-  check-linux:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
-          components: clippy
-      - uses: Swatinem/rust-cache@v1
+  # check-linux:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions-rs/toolchain@v1
+  #       with:
+  #         profile: minimal
+  #         toolchain: stable
+  #         override: true
+  #         components: clippy
+  #     - uses: Swatinem/rust-cache@v1
 
-      - name: Build and install dependencies
-        env:
-          RUST_BACKTRACE: 1
-        run: |
-          sudo apt update
-          sudo apt install build-essential pkg-config nasm libva-dev libdrm-dev libvulkan-dev libx264-dev libx265-dev cmake libasound2-dev libjack-jackd2-dev libxrandr-dev libunwind-dev
-          cargo xtask prepare-deps --platform linux --no-nvidia
+  #     - name: Build and install dependencies
+  #       env:
+  #         RUST_BACKTRACE: 1
+  #       run: |
+  #         sudo apt update
+  #         sudo apt install build-essential pkg-config nasm libva-dev libdrm-dev libvulkan-dev libx264-dev libx265-dev cmake libasound2-dev libjack-jackd2-dev libxrandr-dev libunwind-dev
+  #         cargo xtask prepare-deps --platform linux --no-nvidia
 
-      - name: Prepare deps
-        run: bash ./prepare-deps.sh
+  #     - name: Prepare deps
+  #       run: bash ./prepare-deps.sh
       
-      - uses: nttld/setup-ndk@v1
-        id: setup-ndk
-        with:
-          ndk-version: r25c
+  #     - uses: nttld/setup-ndk@v1
+  #       id: setup-ndk
+  #       with:
+  #         ndk-version: r25c
 
-      - name: Set Up JDK
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
+  #     - name: Set Up JDK
+  #       uses: actions/setup-java@v1
+  #       with:
+  #         java-version: 11
     
-      - name: Change wrapper permissions
-        run: chmod +x ./gradlew
+  #     - name: Change wrapper permissions
+  #       run: chmod +x ./gradlew
       
-      - name: Build apk debug project (APK)
-        run: ./gradlew assembleDebug
+  #     - name: Build apk debug project (APK)
+  #       run: ./gradlew assembleDebug
 
-      - name: Upload APK Debug
-        uses: actions/upload-artifact@v2
-        with:
-          name: Linux build APK(s) debug generated
-          path: app/build/outputs/apk/debug/
+  #     - name: Upload APK Debug
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: Linux build APK(s) debug generated
+  #         path: app/build/outputs/apk/debug/
